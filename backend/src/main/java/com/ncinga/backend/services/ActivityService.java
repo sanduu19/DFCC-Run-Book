@@ -4,6 +4,7 @@ import com.ncinga.backend.documents.Activities;
 import com.ncinga.backend.documents.Records;
 import com.ncinga.backend.dtos.ActivityResponse;
 import com.ncinga.backend.repos.ActivityRepo;
+import com.ncinga.backend.repos.RecordRepo;
 import lombok.Data;
 import org.springframework.stereotype.Service;
 import java.util.*;
@@ -13,9 +14,18 @@ import java.util.stream.Collectors;
 @Data
 public class ActivityService {
     private final ActivityRepo activityRepo;
+    private final RecordRepo recordRepo;
 
     public Activities createService(Activities activity){
         activity.setTime(String.valueOf(new Date()));
+        Records record = new Records();
+        record.setDate(new Date());
+        record.setConfirmation(false);
+        record.setStatus("Pending");
+        Records savedRecord = recordRepo.save(record);
+        List<Records> records = activity.getRecords();
+        records.add(savedRecord);
+        activity.setRecords(records);
         return activityRepo.save(activity);
 
     }
