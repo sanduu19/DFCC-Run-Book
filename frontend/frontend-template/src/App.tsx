@@ -11,6 +11,10 @@ import UserLogin from "./components/UserLogin";
 import Home from "./components/Home";
 import Sheet from "./components/Sheet";
 import Analytics from "./components/Analytics";
+import { useEffect, useState } from "react";
+import ClipLoader from "react-spinners/HashLoader";
+import HashLoader from "react-spinners/HashLoader";
+
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -29,7 +33,29 @@ const router = createBrowserRouter(
 )
 
 function App() {
-  return <RouterProvider router={router} />
-}
+  const[loading,setLoading]=useState(false);
+    useEffect(()=>{
+       setLoading(true)
+       setTimeout(()=>{
+           setLoading(false)
+
+       },8000)
+
+    },[])
+    return (
+      loading ? (
+        <HashLoader
+        className="spinner"
+          color={"#d62424"}
+          loading={loading}
+          size={39}
+          aria-label="Loading Spinner"
+          data-testid="loader"
+        />
+      ) : (
+        <RouterProvider router={router} />
+      )
+    );
+  }
 
 export default App

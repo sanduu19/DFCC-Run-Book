@@ -2,6 +2,8 @@ import React from "react";
 import {NavLink, useNavigate} from "react-router-dom";
 import logoN from '../assets/logo.svg'
 import '../css/Navbar.css';
+import { useEffect, useState } from "react";
+import ClipLoader from "react-spinners/ClipLoader";
 
 
 export default function UserHeader() {
@@ -17,11 +19,28 @@ export default function UserHeader() {
         localStorage.setItem("user", "");
         navigate("/");
     }
+    const[loading,setLoading]=useState(false);
+    useEffect(()=>{
+       setLoading(true)
+       setTimeout(()=>{
+           setLoading(false)
+
+       },8000)
+
+    },[])
 
     return (
         <header className="Navbar">
             <nav>
-                <NavLink to="/user">
+                <NavLink onClick={()=> loading ? (
+        <ClipLoader
+          color={"#F37A24"}
+          loading={loading}
+          size={30}
+          aria-label="Loading Spinner"
+          data-testid="loader"
+        />
+      ) : null} to="/user">
                     Run Book
                 </NavLink>
                 <NavLink to="/user/sheet">
