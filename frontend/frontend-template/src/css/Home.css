@@ -1,0 +1,124 @@
+
+.container-Home{
+  height: 100vh;
+  width: 100vw;
+  background-color: #d62424;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+}
+.table-container {
+  width: 60%;
+  margin-left: 40px; 
+  
+  
+  width: fit-content; 
+    margin: 40px auto;
+    padding: 20px;
+    border-radius: 10px;
+    
+    box-shadow: 0px 2px 5px rgba(1,1,1,1);
+    margin-top: -250px;
+    background-color: rgba(255, 255, 255, 0.75);
+    margin-top: 72px;
+    
+    
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-family: 'Roboto Condensed';
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-size: 12px; 
+  
+}
+
+th,
+td {
+  padding: 8px; 
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.top-controls {
+  display: flex;
+  justify-content: space-between; /* This will space out your controls */
+  align-items: center; /* This will vertically center your controls in the container */
+  padding: 0 20px; /* Add some padding on the sides */
+}
+
+
+tbody tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.5);; 
+}
+
+
+
+.dateee {
+  margin-bottom: 15px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 5px; 
+  width: 100px; 
+  font-size: 12px; 
+}
+
+
+.buttonT {
+  background-color: #a20227; /* A nice shade of blue */
+  color: #090808;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-weight: bold;
+  text-transform: uppercase;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  font-size: 12px; /* Increased font size for better readability */
+  margin-right: 0;
+}
+
+.buttonT:hover {
+  background-color: #590216; /* Darker shade of blue on hover */
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.buttonT:active {
+  background-color: #2E65A7; /* Even darker shade when the button is clicked */
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+}
+
+.inputHH {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+}
+.select{
+  background: white;
+}
+.select option{
+  color: black;
+}
+.select {
+  color: black;
+}
+.select2{
+  background: white;
+  color: black;
+  width: 100px;
+  height: 40px;
+}
+.NewDropdown{
+  padding-bottom: 10px;
+  margin: auto;
+}
