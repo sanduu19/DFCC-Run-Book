@@ -51,10 +51,12 @@ th {
 }
 
 .top-controls {
-  display: flex;
+  display:flex;
   justify-content: space-between; /* This will space out your controls */
   align-items: center; /* This will vertically center your controls in the container */
   padding: 0 20px; /* Add some padding on the sides */
+  flex: 1;
+
 }
 
 
@@ -124,3 +126,4 @@ tbody tr:nth-child(even) {
   padding-bottom: 10px;
   margin: auto;
 }
+

@@ -121,7 +121,9 @@ export default function Home(){
 
     return (
         <div className="container-Home" style={{backgroundImage:`url(${backHH})`, backgroundPosition: 'center', backgroundSize:'cover'}}>
+            
             <div className="table-container">
+            <div className="top-controls">
                 <div className="Date">
                     <div>
                         <DatePicker
@@ -142,6 +144,8 @@ export default function Home(){
                         <option value="Night">Night</option>
                     </select>
                 </div>
+            </div>
+            
 
                 <table>
                     <thead>
