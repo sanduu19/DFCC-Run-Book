@@ -10,6 +10,7 @@ import UserLayout from "./components/UserLayout"
 import UserLogin from "./components/UserLogin";
 import Home from "./components/Home";
 import Sheet from "./components/Sheet";
+import Analytics from "./components/Analytics";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -21,6 +22,7 @@ const router = createBrowserRouter(
       <Route path="user" element={<UserLayout />}>
         <Route index element={<Home />} />
         <Route path="sheet" element={<Sheet />} />
+        <Route path="analytics" element={<Analytics />} />
       </Route>
     </>,
   ),

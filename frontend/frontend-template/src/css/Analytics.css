@@ -1,0 +1,23 @@
+.containerr {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+    margin-top: 80px;
+    width: 100vw;
+    height: 60vh;
+    margin-top: 200px;
+    margin-bottom: 200px;
+  }
+  
+  canvas  {
+    max-width: 400px;
+    height: 500px; 
+    margin: 10px;
+    border: 1px solid #ddd; 
+    border-radius: 8px; 
+    box-shadow: 0 4px 8px rgba(1,1,1,1); 
+    background-color: rgba(255, 255, 255, 0.40);
+    padding: 10px;
+  }
+  

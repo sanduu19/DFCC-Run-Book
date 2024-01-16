@@ -27,6 +27,9 @@ export default function UserHeader() {
                 <NavLink to="/user/sheet">
                     Summary
                 </NavLink>
+                <NavLink to="/user/analytics">
+                    Analytics
+                </NavLink>
                 <button onClick={handleLogout}>
                     Logout
                 </button>
