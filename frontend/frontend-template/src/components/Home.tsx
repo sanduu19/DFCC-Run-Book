@@ -65,8 +65,8 @@ export default function Home() {
     const updatedData = [...data];
     const activity = updatedData[index];
 
-    if (!activity.name) {
-      // Activity is empty, show a dialog box
+    if (activity.status!='Completed') {
+      
       window.alert('Please complete your activity first.');
       return;
     }
