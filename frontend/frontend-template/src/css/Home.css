@@ -121,12 +121,19 @@ tbody tr:nth-child(even) {
 }
 .select {
   color: black;
+  border: none;
+  height: 34px;
+  border-radius: 5px;
+  box-shadow: #090808 0px 0.4px 0.4px 0.4px;
 }
 .select2{
   background: white;
   color: black;
   width: 100px;
-  height: 40px;
+  height: 30px;
+  border: none;
+  border-radius: 5px;
+  box-shadow: #090808 0px 0.4px 0.4px 0.4px;
 }
 .NewDropdown{
   padding-bottom: 10px;
