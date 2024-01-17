@@ -65,7 +65,7 @@ export default function Home() {
     const updatedData = [...data];
     const activity = updatedData[index];
 
-    if (activity.status!='Completed') {
+    if (activity.status !== 'Completed' && activity.status !== 'Not Applicable') {
       
       window.alert('Please complete your activity first.');
       return;
