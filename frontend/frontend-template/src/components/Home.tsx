@@ -188,9 +188,12 @@ export default function Home() {
                   </select>
                 </td>
                 <td>
-                  <button className='buttonT' onClick={() => handleConfirmationChange(index)}>
-                    {row.confirmation ? 'Confirmed' : 'Not Confirmed'}
-                  </button>
+                <button
+    className={`buttonT ${row.confirmation ? 'confirmed' : ''}`}
+    onClick={() => handleConfirmationChange(index)}
+  >
+    {row.confirmation ? 'Confirmed' : 'Not Confirmed'}
+  </button>
                 </td>
                 <td>
                   <input

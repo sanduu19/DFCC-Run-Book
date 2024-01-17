@@ -128,4 +128,7 @@ tbody tr:nth-child(even) {
   padding-bottom: 10px;
   margin: auto;
 }
-
+.buttonT.confirmed {
+  background-color: green;
+  color: white; 
+}
