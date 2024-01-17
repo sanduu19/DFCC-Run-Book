@@ -99,7 +99,7 @@ tbody tr:nth-child(even) {
   font-size: 12px; /* Increased font size for better readability */
   margin-right: 0;
   border-radius: 8px;
-  width: 142px;
+  width: 153px;
   color: white;
   
 }
@@ -150,7 +150,7 @@ tbody tr:nth-child(even) {
 .buttonT.confirmed {
   background-color: green;
   color: white; 
-  width: 141px;
+  width: 153px;
   border-radius: 8px;
 }
 .buttonT.confirmed:hover{
