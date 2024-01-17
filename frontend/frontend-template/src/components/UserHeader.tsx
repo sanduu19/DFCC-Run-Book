@@ -32,15 +32,7 @@ export default function UserHeader() {
     return (
         <header className="Navbar">
             <nav>
-                <NavLink onClick={()=> loading ? (
-        <ClipLoader
-          color={"#F37A24"}
-          loading={loading}
-          size={30}
-          aria-label="Loading Spinner"
-          data-testid="loader"
-        />
-      ) : null} to="/user">
+                <NavLink onClick={()=>  {loading} } to="/user">
                     Run Book
                 </NavLink>
                 <NavLink to="/user/sheet">

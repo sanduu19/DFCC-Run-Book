@@ -56,6 +56,7 @@ th {
   align-items: center; /* This will vertically center your controls in the container */
   padding: 0 20px; /* Add some padding on the sides */
   flex: 1;
+  
 
 }
 
@@ -78,7 +79,7 @@ tbody tr:nth-child(even) {
 
 
 .buttonT {
-  background-color: #a20227; /* A nice shade of blue */
+  background-color: #d62424; /* A nice shade of blue */
   color: #090808;
   border: none;
   padding: 10px 20px;
@@ -92,8 +93,9 @@ tbody tr:nth-child(even) {
 }
 
 .buttonT:hover {
-  background-color: #590216; /* Darker shade of blue on hover */
-  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+  background-color: #d62424;
+  box-shadow: #d62424 0px 7px 35px 0px;
+
 }
 
 .buttonT:active {
@@ -126,4 +128,7 @@ tbody tr:nth-child(even) {
   padding-bottom: 10px;
   margin: auto;
 }
-
+.buttonT.confirmed {
+  background-color: green;
+  color: white; 
+}

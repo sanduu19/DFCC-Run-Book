@@ -43,18 +43,22 @@ function App() {
 
     },[])
     return (
+      
       loading ? (
+        <div className="spinner"> 
         <HashLoader
-        className="spinner"
+        
           color={"#d62424"}
           loading={loading}
-          size={39}
+          size={60}
           aria-label="Loading Spinner"
           data-testid="loader"
-        />
+        /> </div>
       ) : (
         <RouterProvider router={router} />
+        
       )
+      
     );
   }
 
