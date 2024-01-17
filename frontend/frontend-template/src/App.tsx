@@ -45,12 +45,12 @@ function App() {
     return (
       
       loading ? (
-        <div className="spinner">
+        <div className="spinner"> 
         <HashLoader
         
           color={"#d62424"}
           loading={loading}
-          size={50}
+          size={60}
           aria-label="Loading Spinner"
           data-testid="loader"
         /> </div>
