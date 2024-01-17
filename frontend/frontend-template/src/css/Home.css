@@ -90,6 +90,10 @@ tbody tr:nth-child(even) {
   transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
   font-size: 12px; /* Increased font size for better readability */
   margin-right: 0;
+  border-radius: 8px;
+  width: 142px;
+  color: white;
+  
 }
 
 .buttonT:hover {
@@ -117,12 +121,19 @@ tbody tr:nth-child(even) {
 }
 .select {
   color: black;
+  border: none;
+  height: 34px;
+  border-radius: 5px;
+  box-shadow: #090808 0px 0.4px 0.4px 0.4px;
 }
 .select2{
   background: white;
   color: black;
   width: 100px;
-  height: 40px;
+  height: 30px;
+  border: none;
+  border-radius: 5px;
+  box-shadow: #090808 0px 0.4px 0.4px 0.4px;
 }
 .NewDropdown{
   padding-bottom: 10px;
@@ -131,4 +142,11 @@ tbody tr:nth-child(even) {
 .buttonT.confirmed {
   background-color: green;
   color: white; 
+  width: 141px;
+  border-radius: 8px;
 }
+.buttonT.confirmed:hover{
+  background-color: green;
+  box-shadow: green 0px 7px 35px 0px;
+}
+
