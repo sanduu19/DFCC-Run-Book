@@ -63,18 +63,24 @@ export default function Home() {
 
   const handleConfirmationChange = (index: number) => {
     const updatedData = [...data];
+    const activity = updatedData[index];
+
+    if (!activity.name) {
+      // Activity is empty, show a dialog box
+      window.alert('Please complete your activity first.');
+      return;
+    }
 
     const shouldConfirm = window.confirm('Are you sure you want to confirm?');
 
     if (shouldConfirm) {
-      updatedData[index].confirmation = !updatedData[index].confirmation;
-      if (updatedData[index].confirmation) {
-        updatedData[index].confirmUser = localStorage.getItem('user');
+      activity.confirmation = !activity.confirmation;
+      if (activity.confirmation) {
+        activity.confirmUser = localStorage.getItem('user');
       }
+      setData(updatedData);
+      handleSaveConfirmation(index);
     }
-
-    setData(updatedData);
-    handleSaveConfirmation(index);
   };
 
   const handleCommentsChange = (index: number, value: string) => {
@@ -130,7 +136,6 @@ export default function Home() {
 
   return (
     <div className="container-Home" style={{ backgroundImage: `url(${backHH})`, backgroundPosition: 'center', backgroundSize: 'cover' }}>
-
       <div className="table-container">
         <div className="topcontrols">
           <div className="Date">
@@ -141,10 +146,8 @@ export default function Home() {
                 onChange={handleDatePickerChange}
                 dateFormat="yyyy-MM-dd"
               />
-
             </div>
           </div>
-
 
           <div className="NewDropdown">
             <select className='select2' onChange={(e) => handleShift(e)}>
@@ -154,7 +157,6 @@ export default function Home() {
             </select>
           </div>
         </div>
-
 
         <table>
           <thead>
@@ -188,12 +190,12 @@ export default function Home() {
                   </select>
                 </td>
                 <td>
-                <button
-    className={`buttonT ${row.confirmation ? 'confirmed' : ''}`}
-    onClick={() => handleConfirmationChange(index)}
-  >
-    {row.confirmation ? 'Confirmed' : 'Not Confirmed'}
-  </button>
+                  <button
+                    className={`buttonT ${row.confirmation ? 'confirmed' : ''}`}
+                    onClick={() => handleConfirmationChange(index)}
+                  >
+                    {row.confirmation ? 'Confirmed' : 'Not Confirmed'}
+                  </button>
                 </td>
                 <td>
                   <input
@@ -213,7 +215,6 @@ export default function Home() {
           </tbody>
         </table>
       </div>
-
     </div>
   );
 }
