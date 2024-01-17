@@ -118,6 +118,8 @@ export default function Sheet(){
                         </select>
                     </div>
 
+                    
+
                     <div className="Excel">
                         <div>
                             <button className="buttonT" onClick={() => exportToExcel(data)}>
@@ -125,7 +127,7 @@ export default function Sheet(){
                             </button>
                         </div>
                     </div>
-                </div>
+                    </div>
 
                 <table>
                     <thead>

@@ -56,8 +56,15 @@ th {
   align-items: center; /* This will vertically center your controls in the container */
   padding: 0 20px; /* Add some padding on the sides */
   flex: 1;
-  
-
+  width: 50%;
+}
+.topcontrols {
+  display:flex;
+  justify-content: space-between; /* This will space out your controls */
+  align-items: center; /* This will vertically center your controls in the container */
+   /* Add some padding on the sides */
+  flex: 1;
+  width: 35%;
 }
 
 
@@ -75,6 +82,7 @@ tbody tr:nth-child(even) {
   padding: 5px; 
   width: 100px; 
   font-size: 12px; 
+  height: 35px;
 }
 
 
@@ -149,4 +157,6 @@ tbody tr:nth-child(even) {
   background-color: green;
   box-shadow: green 0px 7px 35px 0px;
 }
+
+
 
