@@ -56,6 +56,7 @@ th {
   align-items: center; /* This will vertically center your controls in the container */
   padding: 0 20px; /* Add some padding on the sides */
   flex: 1;
+  
 
 }
 
