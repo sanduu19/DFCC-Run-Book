@@ -54,7 +54,7 @@
 }
 
 /* Responsive design adjustments */
-@media (max-width: 768px) {
+@media (max-width: 558px) {
     .Navbar {
         flex-direction: column;
         padding: 10px;
