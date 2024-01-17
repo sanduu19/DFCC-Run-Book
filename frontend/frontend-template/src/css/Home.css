@@ -90,6 +90,9 @@ tbody tr:nth-child(even) {
   transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
   font-size: 12px; /* Increased font size for better readability */
   margin-right: 0;
+  border-radius: 8px;
+  width: 142px;
+  color: white;
   
 }
 
@@ -133,6 +136,7 @@ tbody tr:nth-child(even) {
   background-color: green;
   color: white; 
   width: 141px;
+  border-radius: 8px;
 }
 .buttonT.confirmed:hover{
   background-color: green;
