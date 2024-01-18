@@ -49,7 +49,7 @@ export default function Home() {
 
   const handleSelectChange = (index: number, value: string) => {
     const updatedData = [...data];
-    if (value === 'Completed') {
+    if (value === 'Completed' || value === 'Not Applicable') {
       updatedData[index].user = localStorage.getItem('user');
     }
     updatedData[index].status = value;
@@ -66,8 +66,12 @@ export default function Home() {
     const activity = updatedData[index];
 
     if (activity.status !== 'Completed' && activity.status !== 'Not Applicable') {
-      
       window.alert('Please complete your activity first.');
+      return;
+    }
+
+    if (activity.user === localStorage.getItem('user')) {
+      window.alert(`You have updated the Action as ${activity.status}. Therefore, you cannot Confirm this Activity`);
       return;
     }
 
@@ -181,21 +185,25 @@ export default function Home() {
                 <td>{row.confirmTime}</td>
                 <td>{row.confirmUser}</td>
                 <td>
-                  <select className='select' value={row.status === 'Completed' ? 'Completed' : row.status === 'Not Applicable' ? 'Not Applicable' : 'Pending'} onChange={(e) => handleSelectChange(index, e.target.value)}>
-                    {dropdownOptions.map((option) => (
-                      <option key={option} value={option}>
-                        {option}
-                      </option>
-                    ))}
-                  </select>
+                  {row.status === 'Completed' ? <span className="green-text">{row.status}</span> : row.status ==='Not Applicable' ?
+                      <span className="yellow-text">{row.status}</span> :
+                      <select className='select' value={row.status} onChange={(e) => handleSelectChange(index, e.target.value)}>
+                        {dropdownOptions.map((option) => (
+                            <option key={option} value={option}>
+                              {option}
+                            </option>
+                        ))}
+                      </select>}
                 </td>
                 <td>
-                  <button
-                    className={`buttonT ${row.confirmation ? 'confirmed' : ''}`}
-                    onClick={() => handleConfirmationChange(index)}
-                  >
-                    {row.confirmation ? 'Confirmed' : 'Not Confirmed'}
-                  </button>
+                  {row.confirmation ? <span className="confirmed-text">CONFIRMED</span> :
+                      <button
+                          className={`buttonT ${row.confirmation ? 'confirmed' : ''}`}
+                          onClick={() => handleConfirmationChange(index)}
+                      >
+                        {row.confirmation ? 'Confirmed' : 'Not Confirmed'}
+                      </button>
+                  }
                 </td>
                 <td>
                   <input
@@ -206,7 +214,7 @@ export default function Home() {
                   />
                 </td>
                 <td>
-                  <button onClick={() => handleSaveComment(index)}>
+                  <button className="save-button" onClick={() => handleSaveComment(index)}>
                     SAVE
                   </button>
                 </td>

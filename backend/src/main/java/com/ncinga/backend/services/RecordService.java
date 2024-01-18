@@ -2,6 +2,7 @@ package com.ncinga.backend.services;
 
 import com.ncinga.backend.documents.Activities;
 import com.ncinga.backend.documents.Records;
+import com.ncinga.backend.dtos.ActivityRequest;
 import com.ncinga.backend.dtos.ActivityResponse;
 import com.ncinga.backend.repos.ActivityRepo;
 import com.ncinga.backend.repos.RecordRepo;
@@ -16,14 +17,14 @@ public class RecordService {
     private final RecordRepo recordRepo;
     private final ActivityRepo activityRepo;
 
-    public String updateServiceForConfirmation(ActivityResponse activityResponse) {
-        Optional<Activities> optionalActivity = activityRepo.findById(activityResponse.getActivityId());
-        Optional<Records> optionalRecord = recordRepo.findById(activityResponse.getRecordId());
+    public String updateServiceForConfirmation(ActivityRequest activityRequest) {
+        Optional<Activities> optionalActivity = activityRepo.findById(activityRequest.getActivityId());
+        Optional<Records> optionalRecord = recordRepo.findById(activityRequest.getRecordId());
         if(optionalActivity.isPresent() && optionalRecord.isPresent()){
             Records record = optionalRecord.get();
-            if(activityResponse.isConfirmation()){
+            if(activityRequest.isConfirmation()){
                 record.setConfirmTime(new Date());
-                record.setConfirmUser(activityResponse.getConfirmUser());
+                record.setConfirmUser(activityRequest.getConfirmUser());
                 record.setConfirmation(true);
             }else{
                 record.setConfirmation(false);
@@ -36,17 +37,17 @@ public class RecordService {
         }
     }
 
-    public String updateServiceForStatus(ActivityResponse activityResponse) {
-        Optional<Activities> optionalActivity = activityRepo.findById(activityResponse.getActivityId());
-        Optional<Records> optionalRecord = recordRepo.findById(activityResponse.getRecordId());
+    public String updateServiceForStatus(ActivityRequest activityRequest) {
+        Optional<Activities> optionalActivity = activityRepo.findById(activityRequest.getActivityId());
+        Optional<Records> optionalRecord = recordRepo.findById(activityRequest.getRecordId());
         if(optionalActivity.isPresent() && optionalRecord.isPresent()){
             Records record = optionalRecord.get();
-            if(activityResponse.getStatus() != null && Objects.equals(activityResponse.getStatus(), "Completed")){
+            if(activityRequest.getStatus() != null && Objects.equals(activityRequest.getStatus(), "Completed") || Objects.equals(activityRequest.getStatus(), "Not Applicable")){
                 record.setCompletedTime(new Date());
-                record.setUser(activityResponse.getUser());
-                record.setStatus(activityResponse.getStatus());
-            }else if(activityResponse.getStatus() != null ){
-                record.setStatus(activityResponse.getStatus());
+                record.setUser(activityRequest.getUser());
+                record.setStatus(activityRequest.getStatus());
+            }else if(activityRequest.getStatus() != null ){
+                record.setStatus(activityRequest.getStatus());
             }
             recordRepo.save(record);
             return "Record Saved";
@@ -56,13 +57,13 @@ public class RecordService {
         }
     }
 
-    public String updateServiceForComment(ActivityResponse activityResponse) {
-        Optional<Activities> optionalActivity = activityRepo.findById(activityResponse.getActivityId());
-        Optional<Records> optionalRecord = recordRepo.findById(activityResponse.getRecordId());
+    public String updateServiceForComment(ActivityRequest activityRequest) {
+        Optional<Activities> optionalActivity = activityRepo.findById(activityRequest.getActivityId());
+        Optional<Records> optionalRecord = recordRepo.findById(activityRequest.getRecordId());
         if(optionalActivity.isPresent() && optionalRecord.isPresent()){
             Records record = optionalRecord.get();
-            if(activityResponse.getComment() != null && !activityResponse.getComment().isEmpty()){
-                record.setComment(activityResponse.getComment());
+            if(activityRequest.getComment() != null && !activityRequest.getComment().isEmpty()){
+                record.setComment(activityRequest.getComment());
             }
             recordRepo.save(record);
             return "Record Saved";

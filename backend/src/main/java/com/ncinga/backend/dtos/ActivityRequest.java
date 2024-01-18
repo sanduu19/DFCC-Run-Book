@@ -7,7 +7,7 @@ import java.util.Date;
 
 @Data
 @NoArgsConstructor
-public class ActivityResponse {
+public class ActivityRequest {
     private String activityId;
     private String name;
     private String time;

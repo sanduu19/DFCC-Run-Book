@@ -7,7 +7,10 @@ import com.ncinga.backend.repos.ActivityRepo;
 import com.ncinga.backend.repos.RecordRepo;
 import lombok.Data;
 import org.springframework.stereotype.Service;
+
+import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,6 +34,7 @@ public class ActivityService {
     }
 
     public List<ActivityResponse> getAllByDateAndShift(Date date, String shift) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("'Date: 'dd/MM/yyyy.'Time:' HH:mm.");
         List<Activities> activityListByShift = activityRepo.findByShift(shift).orElseThrow(() -> new RuntimeException("Value not present"));
         List<Activities> activityListByShiftAndDate = activityListByShift.stream()
                 .peek(activity -> {
@@ -65,11 +69,65 @@ public class ActivityService {
                     response.setConfirmUser(record.getConfirmUser());
                     response.setConfirmation(record.isConfirmation());
                     response.setStatus(record.getStatus());
-                    response.setCompletedTime(record.getCompletedTime());
-                    response.setConfirmTime(record.getConfirmTime());
+                    if(record.getCompletedTime() != null){
+                        response.setCompletedTime(dateFormat.format(record.getCompletedTime()));
+                    }
+                    if(record.getConfirmTime() != null){
+                        response.setConfirmTime(dateFormat.format(record.getConfirmTime()));
+                    }
                     response.setDate(record.getDate());
                     response.setComment(record.getComment());
                     return response;
                 })).toList();
+    }
+
+    public List<AtomicInteger> getPieChartDataByDateAndShift(Date date, String shift) {
+        AtomicInteger pending = new AtomicInteger();
+        AtomicInteger notApplicable = new AtomicInteger();
+        AtomicInteger completed = new AtomicInteger();
+        AtomicInteger notConfirmed = new AtomicInteger();
+        AtomicInteger confirmed = new AtomicInteger();
+
+        List<Activities> activityListByMorningShift = activityRepo.findByShift(shift).orElseThrow(() -> new RuntimeException("Value not present"));
+        activityListByMorningShift
+                .forEach(activity -> {
+                    activity.getRecords()
+                            .forEach(record -> {
+                                Calendar calendar = Calendar.getInstance();
+                                calendar.setTime(record.getDate());
+                                int day = calendar.get(Calendar.DAY_OF_MONTH);
+                                int month = calendar.get(Calendar.MONTH) + 1;
+                                int year = calendar.get(Calendar.YEAR);
+
+                                calendar.setTime(date);
+                                int dayC = calendar.get(Calendar.DAY_OF_MONTH);
+                                int monthC = calendar.get(Calendar.MONTH) + 1;
+                                int yearC = calendar.get(Calendar.YEAR);
+
+                                if(day == dayC && month == monthC && year == yearC){
+                                    if(record.getStatus().equals("Pending")){
+                                        pending.getAndIncrement();
+                                        notConfirmed.getAndIncrement();
+                                    }else{
+                                        if(record.getStatus().equals("Completed")){
+                                            completed.getAndIncrement();
+                                            if(record.isConfirmation()){
+                                                confirmed.getAndIncrement();
+                                            }else{
+                                                notConfirmed.getAndIncrement();
+                                            }
+                                        }else{
+                                            notApplicable.getAndIncrement();
+                                            if(record.isConfirmation()){
+                                                confirmed.getAndIncrement();
+                                            }else{
+                                                notConfirmed.getAndIncrement();
+                                            }
+                                        }
+                                    }
+                                }
+                            });
+                });
+        return List.of(pending, notApplicable, completed, notConfirmed, confirmed);
     }
 }

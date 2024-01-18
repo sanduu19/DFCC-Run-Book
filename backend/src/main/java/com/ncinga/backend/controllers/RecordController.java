@@ -1,14 +1,12 @@
 package com.ncinga.backend.controllers;
 
-import com.ncinga.backend.documents.Records;
-import com.ncinga.backend.dtos.ActivityResponse;
+import com.ncinga.backend.dtos.ActivityRequest;
 import com.ncinga.backend.services.RecordService;
 import lombok.Data;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(path="/records")
@@ -23,17 +21,17 @@ public class RecordController {
     }
 
     @PostMapping(path="/update/confirmation")
-    public ResponseEntity<String> updateRecordConfirmation(@RequestBody ActivityResponse activityResponse){
-        return ResponseEntity.ok(recordService.updateServiceForConfirmation(activityResponse));
+    public ResponseEntity<String> updateRecordConfirmation(@RequestBody ActivityRequest activityRequest){
+        return ResponseEntity.ok(recordService.updateServiceForConfirmation(activityRequest));
     }
 
     @PostMapping(path="/update/status")
-    public ResponseEntity<String> updateRecordStatus(@RequestBody ActivityResponse activityResponse){
-        return ResponseEntity.ok(recordService.updateServiceForStatus(activityResponse));
+    public ResponseEntity<String> updateRecordStatus(@RequestBody ActivityRequest activityRequest){
+        return ResponseEntity.ok(recordService.updateServiceForStatus(activityRequest));
     }
 
     @PostMapping(path="/update/comment")
-    public ResponseEntity<String> updateRecordComment(@RequestBody ActivityResponse activityResponse){
-        return ResponseEntity.ok(recordService.updateServiceForComment(activityResponse));
+    public ResponseEntity<String> updateRecordComment(@RequestBody ActivityRequest activityRequest){
+        return ResponseEntity.ok(recordService.updateServiceForComment(activityRequest));
     }
 }
