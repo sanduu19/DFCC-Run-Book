@@ -1,7 +1,6 @@
 package com.ncinga.backend.controllers;
 
 import com.ncinga.backend.documents.Activities;
-import com.ncinga.backend.documents.Records;
 import com.ncinga.backend.dtos.ActivityResponse;
 import com.ncinga.backend.services.ActivityService;
 import lombok.Data;

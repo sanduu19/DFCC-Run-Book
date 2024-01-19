@@ -34,7 +34,7 @@ public class ActivityService {
     }
 
     public List<ActivityResponse> getAllByDateAndShift(Date date, String shift) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("'Date: 'dd/MM/yyyy.'Time:' HH:mm.");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy  HH:mm");
         List<Activities> activityListByShift = activityRepo.findByShift(shift).orElseThrow(() -> new RuntimeException("Value not present"));
         List<Activities> activityListByShiftAndDate = activityListByShift.stream()
                 .peek(activity -> {

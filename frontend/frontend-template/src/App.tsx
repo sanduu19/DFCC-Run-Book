@@ -12,7 +12,6 @@ import Home from "./components/Home";
 import Sheet from "./components/Sheet";
 import Analytics from "./components/Analytics";
 import { useEffect, useState } from "react";
-import ClipLoader from "react-spinners/HashLoader";
 import HashLoader from "react-spinners/HashLoader";
 
 

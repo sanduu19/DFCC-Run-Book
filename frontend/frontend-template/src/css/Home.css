@@ -1,7 +1,7 @@
 
 .container-Home{
   height: 100vh;
-  width: 100vw;
+  width: 100%;
   background-color: #d62424;
   display: flex;
   align-items: center;
@@ -9,15 +9,16 @@
   
 }
 .table-container {
-  width: 90vw;
+  width: 95vw;
+  height: 95%;
   margin: 40px auto;
-  padding: 20px;
+  padding: 15px;
   border-radius: 10px;
   box-shadow: 0px 2px 5px rgba(1, 1, 1, 1);
   background-color: rgba(255, 255, 255, 0.75);
   overflow-x: auto; 
   max-height: calc(100vh - 160px); 
-  margin-top: 60px;
+  margin-top: 100px;
 
   
 }
@@ -29,7 +30,7 @@ table {
   font-family: 'Roboto Condensed', sans-serif;
   border: 1px solid #ddd;
   border-radius: 10px;
-  font-size: 14px;
+  font-size: 16px;
   
 }
 

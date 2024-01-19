@@ -5,9 +5,12 @@ import React, {useEffect, useRef, useState} from "react";
 import '../css/Analytics.css'
 import backHH from '../assets/backHomee.jpg';
 import {fetchPieChartData} from "../features/analytics/AnalyticsAPIs";
+import HashLoader from "react-spinners/HashLoader";
+import {RouterProvider} from "react-router-dom";
 
 
 export default function Analytics(){
+  const[loading,setLoading]=useState(false);
   const [selectedDate, setSelectedDate] = useState<Date | string>(new Date());
   const chartRef1 = useRef(null);
   const chartRef2 = useRef(null);
@@ -57,7 +60,6 @@ export default function Analytics(){
       const arr1 = await fetchPieChartData(selectedDate, "Morning");
       const arr2 = await fetchPieChartData(selectedDate, "Mid");
       const arr3 = await fetchPieChartData(selectedDate, "Night");
-
       const data1 = {
         title: "Morning Shift",
         labels: ["Pending", "Not Applicable", "Completed", "Not Confirmed", "Confirmed"],
@@ -96,12 +98,10 @@ export default function Analytics(){
           "rgb(54, 162, 235)",
         ],
       };
-
       chartInstance1.current = initializeChart(chartRef1, data1);
       chartInstance2.current = initializeChart(chartRef2, data2);
       chartInstance3.current = initializeChart(chartRef3, data3);
     };
-
     fetchDataAndInitializeCharts().then(r => {console.log("Fetched Pie Chart Data")});
 
     return () => {
@@ -127,23 +127,23 @@ export default function Analytics(){
   };
 
   return (
-    <div className="container-Home" style={{backgroundImage:`url(${backHH})`, backgroundPosition: 'center', backgroundSize:'cover'}}>
-      <div className="DateAnalytics">
-        <div>
-          <text className="select-date">Date:  </text>
-          <DatePicker
-              className='dateee'
-              selected={selectedDate}
-              onChange={handleDatePickerChange}
-              dateFormat="yyyy-MM-dd"
-          />
+        <div className="container-Home" style={{backgroundImage:`url(${backHH})`, backgroundPosition: 'center', backgroundSize:'cover'}}>
+          <div className="DateAnalytics">
+            <div>
+              <text className="select-date">Date:  </text>
+              <DatePicker
+                  className='dateee'
+                  selected={selectedDate}
+                  onChange={handleDatePickerChange}
+                  dateFormat="yyyy-MM-dd"
+              />
+            </div>
+          </div>
+          <div className="containerr" >
+            <canvas ref={chartRef1} />
+            <canvas ref={chartRef2} />
+            <canvas ref={chartRef3} />
+          </div>
         </div>
-      </div>
-      <div className="containerr" >
-        <canvas ref={chartRef1} />
-        <canvas ref={chartRef2} />
-        <canvas ref={chartRef3} />
-      </div>
-    </div>
   );
 }

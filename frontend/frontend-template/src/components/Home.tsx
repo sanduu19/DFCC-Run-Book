@@ -11,6 +11,8 @@ import {
   updateRecordsForConfirmation,
   updateRecordsForStatus,
 } from '../features/activity/activityAPIs';
+import DialogBox from "./DialogBox";
+import AlertBox from "./AlertBox";
 
 export interface RowData {
   activityId: string;
@@ -33,6 +35,14 @@ export default function Home() {
   const [selectedDate, setSelectedDate] = useState<Date | string>(new Date());
   const [selectedOption, setSelectedOption] = useState<string>('Morning'); // Default value
   const [data, setData] = useState<RowData[]>([]);
+  const [dialogFunction, setDialogFunction] = useState<string>('');
+  const [dialogValue, setDialogValue] = useState<string>('');
+  const [dialogIndex, setDialogIndex] = useState<number>(0);
+  const [openDialog, setOpenDialog] = useState<boolean>(false);
+  const [messageForDialogBox, setMessageForDialogBox] = useState<string>("");
+  const [openAlert, setOpenAlert] = useState<boolean>(false);
+  const [messageForAlertBox, setMessageForAlertBox] = useState<string>("");
+  const [activityNameForDialogAndAlertBox, setActivityNameForDialogAndAlertBox] = useState<string>("");
 
   useEffect(() => {
     const details: dateAndShift = {
@@ -49,12 +59,15 @@ export default function Home() {
 
   const handleSelectChange = (index: number, value: string) => {
     const updatedData = [...data];
+    const activity = updatedData[index];
     if (value === 'Completed' || value === 'Not Applicable') {
-      updatedData[index].user = localStorage.getItem('user');
+      setOpenDialog(true);
+      setActivityNameForDialogAndAlertBox(activity.name);
+      setMessageForDialogBox(`Are you sure you want to set the action as ${value} for `);
+      setDialogFunction('HandleState');
+      setDialogValue(value);
+      setDialogIndex(index);
     }
-    updatedData[index].status = value;
-    setData(updatedData);
-    handleSaveStatus(index);
   };
 
   const handleShift = (e) => {
@@ -66,25 +79,23 @@ export default function Home() {
     const activity = updatedData[index];
 
     if (activity.status !== 'Completed' && activity.status !== 'Not Applicable') {
-      window.alert('Please complete your activity first.');
+      setOpenAlert(true);
+      setMessageForAlertBox('Please complete your activity first.')
       return;
     }
 
     if (activity.user === localStorage.getItem('user')) {
-      window.alert(`You have updated the Action as ${activity.status}. Therefore, you cannot Confirm this Activity`);
+      setOpenAlert(true);
+      setMessageForAlertBox(`You have updated the Action as ${activity.status}. Therefore, you cannot Confirm Activity: `);
+      setActivityNameForDialogAndAlertBox(activity.name);
       return;
     }
 
-    const shouldConfirm = window.confirm('Are you sure you want to confirm?');
-
-    if (shouldConfirm) {
-      activity.confirmation = !activity.confirmation;
-      if (activity.confirmation) {
-        activity.confirmUser = localStorage.getItem('user');
-      }
-      setData(updatedData);
-      handleSaveConfirmation(index);
-    }
+    setOpenDialog(true);
+    setMessageForDialogBox('Are you sure you want to confirm?');
+    setDialogFunction('HandleConfirmation');
+    setDialogValue('');
+    setDialogIndex(index);
   };
 
   const handleCommentsChange = (index: number, value: string) => {
@@ -137,6 +148,46 @@ export default function Home() {
       setSelectedDate('');
     }
   };
+
+  const handleDialogConfirm = () => {
+    if(dialogFunction === 'HandleState') {
+      const updatedData = [...data];
+      updatedData[dialogIndex].user = localStorage.getItem('user');
+      updatedData[dialogIndex].status = dialogValue;
+      setData(updatedData);
+      handleSaveStatus(dialogIndex);
+    }
+    else{
+      const updatedData = [...data];
+      const activity = updatedData[dialogIndex];
+      activity.confirmation = !activity.confirmation;
+      if (activity.confirmation) {
+        activity.confirmUser = localStorage.getItem('user');
+      }
+      setOpenDialog(false);
+      setData(updatedData);
+      handleSaveConfirmation(dialogIndex);
+    }
+    setOpenDialog(false);
+    setMessageForDialogBox('');
+    setDialogFunction('');
+    setDialogValue('');
+    setDialogIndex(0);
+    setActivityNameForDialogAndAlertBox("");
+  }
+
+  const handleDialogCancel = () => {
+    setOpenDialog(false);
+    setMessageForDialogBox('');
+    setDialogFunction('');
+    setDialogValue('');
+    setDialogIndex(0);
+  }
+
+  const backToHome = () => {
+    setOpenAlert(false);
+    setActivityNameForDialogAndAlertBox("");
+  }
 
   return (
     <div className="container-Home" style={{ backgroundImage: `url(${backHH})`, backgroundPosition: 'center', backgroundSize: 'cover' }}>
@@ -201,7 +252,7 @@ export default function Home() {
                           className={`buttonT ${row.confirmation ? 'confirmed' : ''}`}
                           onClick={() => handleConfirmationChange(index)}
                       >
-                        {row.confirmation ? 'Confirmed' : 'Not Confirmed'}
+                        {row.confirmation ? 'Confirmed' : 'Confirm'}
                       </button>
                   }
                 </td>
@@ -222,6 +273,19 @@ export default function Home() {
             ))}
           </tbody>
         </table>
+        <DialogBox
+            isOpen={openDialog}
+            message={messageForDialogBox}
+            activityName={activityNameForDialogAndAlertBox}
+            onConfirm={handleDialogConfirm}
+            onCancel={handleDialogCancel}
+        />
+        <AlertBox
+            isOpen={openAlert}
+            activityName={activityNameForDialogAndAlertBox}
+            message={messageForAlertBox}
+            back={backToHome}
+        />
       </div>
     </div>
   );
