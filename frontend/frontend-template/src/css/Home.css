@@ -104,6 +104,29 @@ tbody tr:nth-child(even) {
 
 }
 
+.excel {
+  background-color: #d62424; /* A nice shade of blue */
+  width: 170px;
+  color: #090808;
+  border: none;
+  padding: 11px 15px;
+  cursor: pointer;
+  font-weight: bold;
+  text-transform: uppercase;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  font-size: 13px; /* Increased font size for better readability */
+  margin-right: 0;
+  margin-bottom: 7px;
+  border-radius: 8px;
+}
+
+.excel:hover {
+  background-color: #d62424;
+  box-shadow: #d62424 0px 7px 35px 0px;
+
+}
+
 .buttonT:active {
   background-color: #2E65A7; /* Even darker shade when the button is clicked */
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);

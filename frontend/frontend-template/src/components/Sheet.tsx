@@ -4,10 +4,8 @@ import 'react-datepicker/dist/react-datepicker.css';
 import '../css/Home.css';
 import backHH from '../assets/backHomee.jpg';
 import {
-    createDailyRecords,
     dateAndShift,
     fetchActivitiesInMount,
-    updateRecords
 } from "../features/activity/activityAPIs";
 import * as XLSX from 'xlsx';
 
@@ -122,7 +120,7 @@ export default function Sheet(){
 
                     <div className="Excel">
                         <div>
-                            <button className="buttonT" onClick={() => exportToExcel(data)}>
+                            <button className="excel" onClick={() => exportToExcel(data)}>
                                 Export to Excel
                             </button>
                         </div>
