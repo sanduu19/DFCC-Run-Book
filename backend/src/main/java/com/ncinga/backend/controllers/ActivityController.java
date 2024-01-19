@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @RestController
 @RequestMapping(path = "/activities")
@@ -25,5 +26,10 @@ public class ActivityController {
     @GetMapping(path = "/getallbydateandshitf/{date}/{shitf}")
     public ResponseEntity<List<ActivityResponse>> getAllByDateAndShift(@PathVariable Date date, @PathVariable String shitf){
         return ResponseEntity.ok(activityService.getAllByDateAndShift(date, shitf));
+    }
+
+    @GetMapping(path = "/getanalyticsbydateandshitf/{date}/{shitf}")
+    public ResponseEntity<List<AtomicInteger>> getPieChartDataByDateAndShift(@PathVariable Date date, @PathVariable String shitf){
+        return ResponseEntity.ok(activityService.getPieChartDataByDateAndShift(date, shitf));
     }
 }
