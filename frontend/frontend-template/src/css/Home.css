@@ -84,6 +84,7 @@ tbody tr:nth-child(even) {
 
 .buttonT {
   background-color: #d62424; /* A nice shade of blue */
+  width: 120px;
   color: #090808;
   border: none;
   padding: 10px 20px;
@@ -95,7 +96,6 @@ tbody tr:nth-child(even) {
   font-size: 13px; /* Increased font size for better readability */
   margin-right: 0;
   border-radius: 8px;
-  width: 170px;
 }
 
 .buttonT:hover {
@@ -113,7 +113,7 @@ tbody tr:nth-child(even) {
   padding: 8px;
   border: 2px solid #969393;
   border-radius: 5px;
-  width: 100%;
+  width: 150px;
 
 }
 /*.select{*/
@@ -127,8 +127,8 @@ tbody tr:nth-child(even) {
   color: #090808;
   border: 1px solid; /* Add 'solid' to specify the border style */
   height: 35px;
-  width: 169px;
-  padding: 7px 8px;
+  width: 120px;
+  padding: 5px 5px;
   border-radius: 5px;
   box-shadow: 0.7px 0.7px 0.7px 0.7px #090808; /* Adjust the box-shadow properties */
   font-family: 'Your Font', sans-serif; /* Replace 'Your Font' with your desired font */
@@ -163,7 +163,7 @@ tbody tr:nth-child(even) {
 
 .green-text {
   display: inline-block;
-  width: 153px;
+  width: 104px;
   padding: 7px 8px;
   background-color: #148519; /* Green background color */
   color: #FFFFFF; /* White text color */
@@ -174,7 +174,7 @@ tbody tr:nth-child(even) {
 
 .confirmed-text {
   display: inline-block;
-  width: 153px;
+  width: 104px;
   padding: 7px 8px;
   background-color: #04880a; /* Green background color */
   color: #FFFFFF; /* White text color */
@@ -185,7 +185,7 @@ tbody tr:nth-child(even) {
 
 .yellow-text {
   display: inline-block;
-  width: 153px;
+  width: 104px;
   padding: 7px 8px;
   background-color: rgba(250, 222, 62, 0.97); /* Green background color */
   color: #090808; /* White text color */
@@ -211,7 +211,7 @@ tbody tr:nth-child(even) {
 }
 
 .truncate-cell {
-  max-width: 150px; /* Adjust the value based on your needs */
+  max-width: 250px; /* Adjust the value based on your needs */
 }
 
 @media (max-width: 1200px) {

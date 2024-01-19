@@ -217,10 +217,10 @@ export default function Home() {
           <thead>
             <tr>
               <th>Activity</th>
-              <th>Date</th>
-              <th>User</th>
-              <th>Confirm Date</th>
-              <th>Confirm User</th>
+              <th>Completed Date</th>
+              <th>Completed User</th>
+              <th>Confirmed Date</th>
+              <th>Confirmed User</th>
               <th>Action</th>
               <th>Confirmation</th>
               <th>Comment</th>
