@@ -230,7 +230,7 @@ export default function Home() {
           <tbody>
             {data.map((row, index) => (
               <tr key={index}>
-                <td>{row.name}</td>
+                <td className="truncate-cell">{row.name}</td>
                 <td>{row.completedTime}</td>
                 <td>{row.user}</td>
                 <td>{row.confirmTime}</td>

@@ -210,6 +210,10 @@ tbody tr:nth-child(even) {
   border-color: #45a049; /* Darker green border color on hover */
 }
 
+.truncate-cell {
+  max-width: 150px; /* Adjust the value based on your needs */
+}
+
 @media (max-width: 1200px) {
   .topcontrols {
     display:flex;
