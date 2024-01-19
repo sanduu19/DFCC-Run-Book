@@ -211,7 +211,7 @@ tbody tr:nth-child(even) {
 }
 
 .truncate-cell {
-  max-width: 250px; /* Adjust the value based on your needs */
+  max-width: 350px; /* Adjust the value based on your needs */
 }
 
 @media (max-width: 1200px) {
