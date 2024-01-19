@@ -111,9 +111,10 @@ tbody tr:nth-child(even) {
 
 .inputHH {
   padding: 8px;
-  border: 1px solid #ccc;
+  border: 2px solid #969393;
   border-radius: 5px;
   width: 100%;
+
 }
 /*.select{*/
 /*  background: white;*/
