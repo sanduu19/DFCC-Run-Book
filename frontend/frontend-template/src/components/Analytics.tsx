@@ -5,12 +5,8 @@ import React, {useEffect, useRef, useState} from "react";
 import '../css/Analytics.css'
 import backHH from '../assets/backHomee.jpg';
 import {fetchPieChartData} from "../features/analytics/AnalyticsAPIs";
-import HashLoader from "react-spinners/HashLoader";
-import {RouterProvider} from "react-router-dom";
-
 
 export default function Analytics(){
-  const[loading,setLoading]=useState(false);
   const [selectedDate, setSelectedDate] = useState<Date | string>(new Date());
   const chartRef1 = useRef(null);
   const chartRef2 = useRef(null);
@@ -25,29 +21,56 @@ export default function Analytics(){
     }
 
     return new Chart(chartRef.current, {
-      type: "pie",
+      type: "bar",
       data: {
         labels: data.labels,
         datasets: [
           {
+            label: 'Analytics',
             data: data.values,
             backgroundColor: data.colors,
+            borderColor: data.borderColors,
           },
         ],
       },
       options: {
         plugins: {
-          legend: {
-            labels: {
-              color: '#090808', // Set legend label text color
-              fontSize: 34,
-            },
-          },
           title: {
             display: true,
             text: data.title,
             color: '#090808', // Set chart title text color
-            fontSize: 25,
+            font: {
+              size: 25, // Set the font size for the title
+            },
+          },
+          legend: {
+            labels: {
+              fontSize: 18, // Set the font size for the legend label ('Analytics')
+              color: '#090808', // Set the font color for the legend label
+            },
+          },
+        },
+        scales: {
+          x: {
+            font: {
+              size: 50,
+            },
+            ticks: {
+              color: '#090808', // Set the font color for x-axis labels
+            },
+            grid: {
+              color: '#090808', // Set the color of the x-axis grid lines
+            },
+          },
+          y: {
+            beginAtZero: true,
+            ticks: {
+              fontSize: 18, // Set the font size for the y-axis labels
+              color: '#090808', // Set the font color for y-axis labels
+            },
+            grid: {
+              color: '#090808', // Set the color of the y-axis grid lines
+            },
           },
         },
       },
@@ -65,12 +88,19 @@ export default function Analytics(){
         labels: ["Pending", "Not Applicable", "Completed", "Not Confirmed", "Confirmed"],
         values: arr1,
         colors: [
-          "#d90e0e",
-          "rgb(60,222,35)",
-          "rgb(128,58,234)",
-          "rgb(89,2,22)",
-          "rgb(54, 162, 235)",
+          "rgba(253,242,7,0.95)",
+          "rgb(115,114,114)",
+          "rgb(65,190,2)",
+          "rgb(245,2,2)",
+          "rgb(2,38,180)",
         ],
+        borderColors: [
+          "rgba(253,242,7,0.95)",
+          "rgb(115,114,114)",
+          "rgb(65,190,2)",
+          "rgb(245,2,2)",
+          "rgb(2,38,180)",
+        ]
       };
 
       const data2 = {
@@ -78,12 +108,19 @@ export default function Analytics(){
         labels: ["Pending", "Not Applicable", "Completed", "Not Confirmed", "Confirmed"],
         values: arr2,
         colors: [
-          "#d90e0e",
-          "rgb(60,222,35)",
-          "rgb(128,58,234)",
-          "rgb(89,2,22)",
-          "rgb(54, 162, 235)",
+          "rgba(253,242,7,0.95)",
+          "rgb(115,114,114)",
+          "rgb(65,190,2)",
+          "rgb(245,2,2)",
+          "rgb(2,38,180)",
         ],
+        borderColors: [
+          "rgba(253,242,7,0.95)",
+          "rgb(115,114,114)",
+          "rgb(65,190,2)",
+          "rgb(245,2,2)",
+          "rgb(2,38,180)",
+        ]
       };
 
       const data3 = {
@@ -91,12 +128,19 @@ export default function Analytics(){
         labels: ["Pending", "Not Applicable", "Completed", "Not Confirmed", "Confirmed"],
         values: arr3,
         colors: [
-          "#f81818",
-          "rgb(60,222,35)",
-          "rgb(128,58,234)",
-          "rgb(89,2,22)",
-          "rgb(54, 162, 235)",
+          "rgba(253,242,7,0.95)",
+          "rgb(115,114,114)",
+          "rgb(65,190,2)",
+          "rgb(245,2,2)",
+          "rgb(2,38,180)",
         ],
+        borderColors: [
+          "rgba(253,242,7,0.95)",
+          "rgb(115,114,114)",
+          "rgb(65,190,2)",
+          "rgb(245,2,2)",
+          "rgb(2,38,180)",
+        ]
       };
       chartInstance1.current = initializeChart(chartRef1, data1);
       chartInstance2.current = initializeChart(chartRef2, data2);

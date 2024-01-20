@@ -1,33 +1,32 @@
 .DateAnalytics {
     position: absolute;
-    top: 15%;
+    top: 12%;
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center; /* Optional for centering text within the container */
+    font-size: 14px;
 }
 
 .containerr {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 20px;
-    width: 100vw;
-    height: 60vh;
-    margin-top: 200px;
-    margin-bottom: 200px;
-    font-family: 'Roboto Condensed', sans-serif;
-  }
+    width: 100%;
+    margin-top: 100px;
+    padding-bottom: 20px;
+    height: 600px; /* Set a fixed height for the container */
+    overflow-y: auto; /* Enable vertical scrolling if content overflows */
+}
 
-  canvas  {
-    max-width: 400px;
-    height: 500px;
-    margin: 10px;
+canvas {
+    width: 100%;
+    margin-top: 10px;
+    margin-left: 160px;
+    margin-bottom: 20px;
     border: 1px solid #ddd;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(1,1,1,1);
-    background-color: rgba(255, 255, 255, 0.40);
+    box-shadow: 0 4px 8px rgb(9, 8, 8);
+    background-color: rgba(246, 242, 242, 0.48);
     padding: 10px;
-  }
+    font-size: 50px;
+}
 
 .select-date {
     /* Overall styling */
