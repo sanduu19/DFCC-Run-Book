@@ -37,3 +37,13 @@ canvas {
     color: #090808; /* Dark gray text for visual contrast */
     cursor: pointer; /* Indicate interactivity */
 }
+.spinner1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.6);
+    
+  }
