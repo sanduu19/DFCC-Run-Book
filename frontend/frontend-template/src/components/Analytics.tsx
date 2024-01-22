@@ -82,7 +82,6 @@ export default function Analytics() {
   useEffect(() => {
     const fetchDataAndInitializeCharts = async () => {
       try {
-        setLoading(true);
         const arr1 = await fetchPieChartData(selectedDate, "Morning");
         const arr2 = await fetchPieChartData(selectedDate, "Mid");
         const arr3 = await fetchPieChartData(selectedDate, "Night");
@@ -153,12 +152,14 @@ export default function Analytics() {
       } catch (error) {
         console.error("Error fetching and initializing charts:", error);
       } finally {
-        setLoading(false); // Move this inside the finally block
+         // Move this inside the finally block
       }
     };
-
-    fetchDataAndInitializeCharts().then(() => console.log("Fetched and initialized Pie Chart Data"));
-
+    setLoading(true);
+    fetchDataAndInitializeCharts().then(() => {
+      console.log("Fetched and initialized Pie Chart Data");
+      setLoading(false);
+    });
     return () => {
       if (chartInstance1.current) {
         chartInstance1.current.destroy();
