@@ -5,7 +5,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { HashLoader } from 'react-spinners';
 import '../css/Analytics.css';
 import backHH from '../assets/backHomee.jpg';
-import { fetchPieChartData } from "../features/analytics/AnalyticsAPIs";
+import {fetchPieChartData, fetchPieChartSummaryData} from "../features/analytics/AnalyticsAPIs";
 
 export default function Analytics() {
   const [selectedDate, setSelectedDate] = useState<Date | string>(new Date());
@@ -13,9 +13,11 @@ export default function Analytics() {
   const chartRef1 = useRef(null);
   const chartRef2 = useRef(null);
   const chartRef3 = useRef(null);
+  const chartRef4 = useRef(null);
   const chartInstance1 = useRef(null);
   const chartInstance2 = useRef(null);
   const chartInstance3 = useRef(null);
+  const chartInstance4 = useRef(null);
 
   const initializeChart = (chartRef, data) => {
     if (chartRef.current) {
@@ -85,6 +87,7 @@ export default function Analytics() {
         const arr1 = await fetchPieChartData(selectedDate, "Morning");
         const arr2 = await fetchPieChartData(selectedDate, "Mid");
         const arr3 = await fetchPieChartData(selectedDate, "Night");
+        const arr4 = await fetchPieChartSummaryData(selectedDate);
 
         const data1 = {
           title: "Morning Shift",
@@ -146,9 +149,30 @@ export default function Analytics() {
           ]
         };
 
+        const data4 = {
+          title: "Daily Percentage Summary",
+          labels: ["Pending(%)", "Not Applicable(%)", "Completed(%)", "Not Confirmed(%)", "Confirmed(%)"],
+          values: arr4,
+          colors: [
+            "rgba(253,242,7,0.95)",
+            "rgb(115,114,114)",
+            "rgb(65,190,2)",
+            "rgb(245,2,2)",
+            "rgb(2,38,180)",
+          ],
+          borderColors: [
+            "rgba(253,242,7,0.95)",
+            "rgb(115,114,114)",
+            "rgb(65,190,2)",
+            "rgb(245,2,2)",
+            "rgb(2,38,180)",
+          ]
+        };
+
         chartInstance1.current = initializeChart(chartRef1, data1);
         chartInstance2.current = initializeChart(chartRef2, data2);
         chartInstance3.current = initializeChart(chartRef3, data3);
+        chartInstance4.current = initializeChart(chartRef4, data4);
       } catch (error) {
         console.error("Error fetching and initializing charts:", error);
       } finally {
@@ -169,6 +193,9 @@ export default function Analytics() {
       }
       if (chartInstance3.current) {
         chartInstance3.current.destroy();
+      }
+      if (chartInstance4.current) {
+        chartInstance4.current.destroy();
       }
     };
   }, [selectedDate]);
@@ -196,9 +223,10 @@ export default function Analytics() {
         </div>
       </div>
       <div className="containerr" >
-            <canvas ref={chartRef1} />
-            <canvas ref={chartRef2} />
-            <canvas ref={chartRef3} />
+        <canvas ref={chartRef4} />
+        <canvas ref={chartRef1} />
+        <canvas ref={chartRef2} />
+        <canvas ref={chartRef3} />
       </div>
     </div>
   );

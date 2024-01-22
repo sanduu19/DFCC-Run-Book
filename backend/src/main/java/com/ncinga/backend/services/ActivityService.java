@@ -81,7 +81,7 @@ public class ActivityService {
                 })).toList();
     }
 
-    public List<AtomicInteger> getPieChartDataByDateAndShift(Date date, String shift) {
+    public List<AtomicInteger> getBarChartDataByDateAndShift(Date date, String shift) {
         AtomicInteger pending = new AtomicInteger();
         AtomicInteger notApplicable = new AtomicInteger();
         AtomicInteger completed = new AtomicInteger();
@@ -129,5 +129,67 @@ public class ActivityService {
                             });
                 });
         return List.of(pending, notApplicable, completed, notConfirmed, confirmed);
+    }
+
+    public List<Double> getBarChartPercentageDataByDate(Date date) {
+        AtomicInteger pending = new AtomicInteger();
+        AtomicInteger notApplicable = new AtomicInteger();
+        AtomicInteger completed = new AtomicInteger();
+        AtomicInteger notConfirmed = new AtomicInteger();
+        AtomicInteger confirmed = new AtomicInteger();
+        AtomicInteger total = new AtomicInteger();
+
+        List<Activities> activityListByMorningShift = activityRepo.findAll();
+        activityListByMorningShift
+                .forEach(activity -> {
+                    activity.getRecords()
+                            .forEach(record -> {
+                                Calendar calendar = Calendar.getInstance();
+                                calendar.setTime(record.getDate());
+                                int day = calendar.get(Calendar.DAY_OF_MONTH);
+                                int month = calendar.get(Calendar.MONTH) + 1;
+                                int year = calendar.get(Calendar.YEAR);
+
+                                calendar.setTime(date);
+                                int dayC = calendar.get(Calendar.DAY_OF_MONTH);
+                                int monthC = calendar.get(Calendar.MONTH) + 1;
+                                int yearC = calendar.get(Calendar.YEAR);
+
+                                if(day == dayC && month == monthC && year == yearC){
+                                    total.getAndIncrement();
+                                    if(record.getStatus().equals("Pending")){
+                                        pending.getAndIncrement();
+                                        notConfirmed.getAndIncrement();
+                                    }else{
+                                        if(record.getStatus().equals("Completed")){
+                                            completed.getAndIncrement();
+                                            if(record.isConfirmation()){
+                                                confirmed.getAndIncrement();
+                                            }else{
+                                                notConfirmed.getAndIncrement();
+                                            }
+                                        }else{
+                                            notApplicable.getAndIncrement();
+                                            if(record.isConfirmation()){
+                                                confirmed.getAndIncrement();
+                                            }else{
+                                                notConfirmed.getAndIncrement();
+                                            }
+                                        }
+                                    }
+                                }
+                            });
+                });
+        double percentagePending = (double) pending.get() / total.get() * 100;
+        double percentageNotApplicable = (double) notApplicable.get() / total.get() * 100;
+        double percentageCompleted = (double) completed.get() / total.get() * 100;
+        double percentageNotConfirmed = (double) notConfirmed.get() / total.get() * 100;
+        double percentageConfirmed = (double) confirmed.get() / total.get() * 100;
+        System.out.println(percentagePending);
+        System.out.println(percentageNotApplicable);
+        System.out.println(percentageCompleted);
+        System.out.println(percentageNotConfirmed);
+        System.out.println(percentageConfirmed);
+        return List.of(percentagePending, percentageNotApplicable, percentageCompleted, percentageNotConfirmed, percentageConfirmed);
     }
 }

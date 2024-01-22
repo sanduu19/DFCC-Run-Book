@@ -28,7 +28,12 @@ public class ActivityController {
     }
 
     @GetMapping(path = "/getanalyticsbydateandshitf/{date}/{shitf}")
-    public ResponseEntity<List<AtomicInteger>> getPieChartDataByDateAndShift(@PathVariable Date date, @PathVariable String shitf){
-        return ResponseEntity.ok(activityService.getPieChartDataByDateAndShift(date, shitf));
+    public ResponseEntity<List<AtomicInteger>> getBarChartDataByDateAndShift(@PathVariable Date date, @PathVariable String shitf){
+        return ResponseEntity.ok(activityService.getBarChartDataByDateAndShift(date, shitf));
+    }
+
+    @GetMapping(path = "/getanalyticsSummarybydate/{date}")
+    public ResponseEntity<List<Double>> getBarChartSummaryDataByDate(@PathVariable Date date){
+        return ResponseEntity.ok(activityService.getBarChartPercentageDataByDate(date));
     }
 }
