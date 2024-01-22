@@ -196,17 +196,9 @@ export default function Analytics() {
         </div>
       </div>
       <div className="containerr" >
-        {loading ? (
-          <div className="spinner1">
-            <HashLoader color="#d62424" loading={loading} />
-          </div>
-        ) : (
-          <>
             <canvas ref={chartRef1} />
             <canvas ref={chartRef2} />
             <canvas ref={chartRef3} />
-          </>
-        )}
       </div>
     </div>
   );
