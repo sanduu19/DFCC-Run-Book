@@ -205,10 +205,12 @@ export default function Home() {
           </div>
 
           <div className="NewDropdown">
-            <select className='select2' onChange={(e) => handleShift(e)}>
-              <option value="Morning">Morning</option>
-              <option value="Mid">Mid</option>
-              <option value="Night">Night</option>
+            <select className='select3' onChange={(e) => handleShift(e)}>
+              <option value="Morning-Weekday-Normal">Morning-Weekday-Normal</option>
+              <option value="Morning-Weekday-Holiday">Morning-Weekday-Holiday</option>
+              <option value="Mid-Weekday-Normal">Mid-Weekday-Normal</option>
+              <option value="Night-Weekday-Normal">Night-Weekday-Normal</option>
+              <option value="Night-Weekday-Holiday">Night-Weekday-Holiday</option>
             </select>
           </div>
         </div>

@@ -12,6 +12,7 @@ public class ActivityResponse {
     private String name;
     private String time;
     private String shift; //Morning,Mid,Night
+    private Integer activityOrder;
     private String description;
     private String recordId;
     private String user;

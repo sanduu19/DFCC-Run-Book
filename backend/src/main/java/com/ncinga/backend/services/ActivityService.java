@@ -34,6 +34,12 @@ public class ActivityService {
     }
 
     public List<ActivityResponse> getAllByDateAndShift(Date date, String shift) {
+        Comparator<ActivityResponse> comparator=new Comparator<ActivityResponse>() {
+            @Override
+            public int compare(ActivityResponse o1, ActivityResponse o2) {
+                return o1.getActivityOrder().compareTo(o2.getActivityOrder()) ;
+            }
+        };
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy  HH:mm");
         List<Activities> activityListByShift = activityRepo.findByShift(shift).orElseThrow(() -> new RuntimeException("Value not present"));
         List<Activities> activityListByShiftAndDate = activityListByShift.stream()
@@ -65,6 +71,7 @@ public class ActivityService {
                     response.setDescription(activity.getDescription());
                     response.setShift(activity.getShift());
                     response.setRecordId(record.getId());
+                    response.setActivityOrder(activity.getActivityOrder());
                     response.setUser(record.getUser());
                     response.setConfirmUser(record.getConfirmUser());
                     response.setConfirmation(record.isConfirmation());
@@ -78,7 +85,7 @@ public class ActivityService {
                     response.setDate(record.getDate());
                     response.setComment(record.getComment());
                     return response;
-                })).toList();
+                })).sorted(comparator).toList();
     }
 
     public List<AtomicInteger> getBarChartDataByDateAndShift(Date date, String shift) {

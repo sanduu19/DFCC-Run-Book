@@ -169,6 +169,18 @@ tbody tr:nth-child(even) {
   font-family: 'Your Font', sans-serif; /* Replace 'Your Font' with your desired font */
   font-size: 14px; /* Adjust the font size as needed */
 }
+
+.select3 {
+  background: white;
+  color: #090808;
+  width: 200px;
+  border: 0.5px solid; /* Add 'solid' to specify the border style */
+  border-radius: 5px;
+  box-shadow: 0.7px 0.7px 0.7px 0.7px #090808; /* Adjust the box-shadow properties */
+  height: 35px;
+  font-family: 'Your Font', sans-serif; /* Replace 'Your Font' with your desired font */
+  font-size: 14px; /* Adjust the font size as needed */
+}
 .NewDropdown{
   padding-bottom: 10px;
   margin: auto;

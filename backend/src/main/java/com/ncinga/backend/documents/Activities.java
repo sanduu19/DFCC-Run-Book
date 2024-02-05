@@ -18,6 +18,7 @@ public class Activities {
     private String name;
     private String time;
     private String shift; //Morning,Mid,Night
+    private int activityOrder;
     private String description;
     @DBRef
     private List<Records> records;

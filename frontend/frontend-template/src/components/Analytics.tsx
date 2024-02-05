@@ -84,15 +84,17 @@ export default function Analytics() {
   useEffect(() => {
     const fetchDataAndInitializeCharts = async () => {
       try {
-        const arr1 = await fetchPieChartData(selectedDate, "Morning");
-        const arr2 = await fetchPieChartData(selectedDate, "Mid");
-        const arr3 = await fetchPieChartData(selectedDate, "Night");
+        const arr1 = await fetchPieChartData(selectedDate, "Morning-Weekday-Normal");
+        const arr11 = await fetchPieChartData(selectedDate, "Morning-Weekday-Holiday");
+        const arr2 = await fetchPieChartData(selectedDate, "Mid-Weekday-Normal");
+        const arr3 = await fetchPieChartData(selectedDate, "Night-Weekday-Normal");
+        const arr31 = await fetchPieChartData(selectedDate, "Night-Weekday-Holiday");
         const arr4 = await fetchPieChartSummaryData(selectedDate);
 
         const data1 = {
           title: "Morning Shift",
           labels: ["Pending", "Not Applicable", "Completed", "Not Confirmed", "Confirmed"],
-          values: arr1,
+          values: arr1.length > 0 ? arr1 : arr11,
           colors: [
             "rgba(253,242,7,0.95)",
             "rgb(115,114,114)",
@@ -132,7 +134,7 @@ export default function Analytics() {
         const data3 = {
           title: "Night Shift",
           labels: ["Pending", "Not Applicable", "Completed", "Not Confirmed", "Confirmed"],
-          values: arr3,
+          values: arr3.length > 0 ? arr3 : arr31,
           colors: [
             "rgba(253,242,7,0.95)",
             "rgb(115,114,114)",
