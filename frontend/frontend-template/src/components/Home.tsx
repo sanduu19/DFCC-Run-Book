@@ -33,7 +33,7 @@ export interface RowData {
 
 export default function Home() {
   const [selectedDate, setSelectedDate] = useState<Date | string>(new Date());
-  const [selectedOption, setSelectedOption] = useState<string>('Morning'); // Default value
+  const [selectedOption, setSelectedOption] = useState<string>('Morning-Weekday-Normal'); // Default value
   const [data, setData] = useState<RowData[]>([]);
   const [dialogFunction, setDialogFunction] = useState<string>('');
   const [dialogValue, setDialogValue] = useState<string>('');
