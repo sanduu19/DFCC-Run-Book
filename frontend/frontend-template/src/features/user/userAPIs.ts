@@ -16,7 +16,7 @@ export interface UserLoginDetails {
 
 export const userLoginAPI = async (userData: UserLoginDetails, dispatch: Dispatch<AnyAction>) => {
     try {
-        const response = await axios.post("http://localhost:8080/user/login", userData);
+        const response = await axios.post("http://10.18.40.11:8080/user/login", userData);
         dispatch(updateUser(response.data as string));
         localStorage.setItem("user", response.data as string);
     } catch (error) {

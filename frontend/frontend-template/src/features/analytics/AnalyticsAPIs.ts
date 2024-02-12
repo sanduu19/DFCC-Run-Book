@@ -3,7 +3,7 @@ import axios from "axios";
 export const fetchPieChartData = async (date: Date, shift:string) => {
     try {
 
-        const response = await axios.get(`http://localhost:8080/activities/getanalyticsbydateandshitf/${date}/${shift}`);
+        const response = await axios.get(`http://10.18.40.11:8080/activities/getanalyticsbydateandshitf/${date}/${shift}`);
         return response.data
     } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
@@ -23,7 +23,7 @@ export const fetchPieChartData = async (date: Date, shift:string) => {
 export const fetchPieChartSummaryData = async (date: Date) => {
     try {
 
-        const response = await axios.get(`http://localhost:8080/activities/getanalyticsSummarybydate/${date}`);
+        const response = await axios.get(`http://10.18.40.11:8080/activities/getanalyticsSummarybydate/${date}`);
         return response.data
     } catch (error) {
         if (axios.isAxiosError(error) && error.response) {

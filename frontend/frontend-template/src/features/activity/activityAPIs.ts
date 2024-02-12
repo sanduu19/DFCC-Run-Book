@@ -10,7 +10,7 @@ export const fetchActivitiesInMount = async (details: dateAndShift) => {
     try {
         const date = details.date;
         const shift = details.shift;
-        const response = await axios.get(`http://localhost:8080/activities/getallbydateandshitf/${date}/${shift}`);
+        const response = await axios.get(`http://10.18.40.11:8080/activities/getallbydateandshitf/${date}/${shift}`);
         return response.data
     } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
@@ -30,7 +30,7 @@ export const fetchActivitiesInMount = async (details: dateAndShift) => {
 export const createDailyRecords = async (details: dateAndShift) => {
     try {
         const date = details.date;
-        const response = await axios.get(`http://localhost:8080/records/create/daily/${date}`);
+        const response = await axios.get(`http://10.18.40.11:8080/records/create/daily/${date}`);
         return response.data
     } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
@@ -49,7 +49,7 @@ export const createDailyRecords = async (details: dateAndShift) => {
 
 export const updateRecordsForStatus = async (details: RowData) => {
     try {
-        const response = await axios.post("http://localhost:8080/records/update/status", details);
+        const response = await axios.post("http://10.18.40.11:8080/records/update/status", details);
         return response.data
     } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
@@ -68,7 +68,7 @@ export const updateRecordsForStatus = async (details: RowData) => {
 
 export const updateRecordsForConfirmation = async (details: RowData) => {
     try {
-        const response = await axios.post("http://localhost:8080/records/update/confirmation", details);
+        const response = await axios.post("http://10.18.40.11:8080/records/update/confirmation", details);
         return response.data
     } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
@@ -87,7 +87,7 @@ export const updateRecordsForConfirmation = async (details: RowData) => {
 
 export const updateRecordsForComment = async (details: RowData) => {
     try {
-        const response = await axios.post("http://localhost:8080/records/update/comment", details);
+        const response = await axios.post("http://10.18.40.11:8080/records/update/comment", details);
         return response.data
     } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
