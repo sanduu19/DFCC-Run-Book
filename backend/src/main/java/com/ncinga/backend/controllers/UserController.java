@@ -18,8 +18,7 @@ import java.util.Hashtable;
 public class UserController {
     @PostMapping(path = "/login")
     String login(@RequestBody UserDto user){
-        LdapUser ldapUser=new LdapUser();
-        ldapUser.setEmail("a@a.com");
+        LdapUser ldapUser=ldapLogin(user);
         if(ldapUser.getEmail()!=null && !ldapUser.getEmail().isEmpty()){//auth pass
             return ldapUser.getEmail();
         }else{//error
