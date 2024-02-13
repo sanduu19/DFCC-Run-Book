@@ -5,12 +5,23 @@ import {userLoginAPI, UserLoginDetails} from "../features/user/userAPIs";
 import '../css/Login.css';
 import bg11 from '../assets/neww.webp'
 import logo from '../assets/logo.png'
+import DialogBox from "./DialogBox";
+import AlertBox from "./AlertBox";
 
 export default function Login(){
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+    const [openAlert, setOpenAlert] = useState<boolean>(false);
+    const [messageForAlertBox, setMessageForAlertBox] = useState<string>("");
+    const [activityNameForDialogAndAlertBox, setActivityNameForDialogAndAlertBox] = useState<string>("");
+
+
+    const backToHome = () => {
+        setOpenAlert(false);
+        setActivityNameForDialogAndAlertBox("");
+    }
 
     const handleChangeUsername = (e: React.ChangeEvent<HTMLInputElement>) => {
         setUsername(e.target.value);
@@ -27,7 +38,13 @@ export default function Login(){
             password:password,
         }
         await userLoginAPI(userData, dispatch);
-        navigate('/user');
+        if(userData.message == "INVALID_AUTH"){
+            setOpenAlert(true);
+            setMessageForAlertBox('Invalid username or password ,please try again');
+            navigate('/');
+        }else{
+            navigate('/user');
+        }
     };
 
     return (
@@ -67,6 +84,12 @@ export default function Login(){
                     <div className="submit-container">
                         <button className='button' type="submit">Sign In</button>
                     </div>
+                    <AlertBox
+                        isOpen={openAlert}
+                        activityName={activityNameForDialogAndAlertBox}
+                        message={messageForAlertBox}
+                        back={backToHome}
+                    />
                 </form>
             </div>
         </div>

@@ -19,6 +19,8 @@ export default function UserHeader() {
         localStorage.setItem("user", "");
         navigate("/");
     }
+    const userEmail=localStorage.getItem('user');
+    const loginName=localStorage.getItem('loginName');
     const[loading,setLoading]=useState(false);
     useEffect(()=>{
        setLoading(true)
@@ -45,6 +47,9 @@ export default function UserHeader() {
                     Logout
                 </button>
             </nav>
+            <div className="NavbarUser">
+                Welcome , <b>{loginName} - {userEmail}</b>
+            </div>
             <img src={logoN} alt="Company Logo" className='logo_c' />
         </header>
     )
