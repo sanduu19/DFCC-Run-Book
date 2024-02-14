@@ -11,6 +11,8 @@ import javax.naming.*;
 import javax.naming.directory.*;
 import java.net.http.HttpResponse;
 import java.util.Hashtable;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @RestController
 @RequestMapping(path = "/user")
@@ -33,6 +35,9 @@ public class UserController {
     @Value( "${ldap.base}" )
     private String base;
 
+    @Value( "${ldap.group}" )
+    private String authGroup;
+
     public  LdapUser ldapLogin(UserDto user) {
         LdapUser ldapUser=new LdapUser();
         Hashtable env = new Hashtable();
@@ -51,15 +56,35 @@ public class UserController {
             SearchControls searchControls = new SearchControls();
             searchControls.setSearchScope(SearchControls.SUBTREE_SCOPE);
             NamingEnumeration<SearchResult> results = ctx.search(searchBase, searchFilter, searchControls);
+            boolean itOperatorOnly=false;
             while (results.hasMore()) {
                 SearchResult searchResult = results.next();
                 Attributes attributes = searchResult.getAttributes();
                 Attribute userPrincipalName = attributes.get("userPrincipalName");
                 Attribute name = attributes.get("name");
+                Attribute distinguishedName = attributes.get("distinguishedName");
                 System.out.println("userPrincipalName: " + (userPrincipalName != null ? userPrincipalName.get() : ""));
                 System.out.println("name: " + (name != null ? name.get() : ""));
-                ldapUser.setEmail((userPrincipalName != null ? userPrincipalName.get().toString() : ""));
-                ldapUser.setDisplayName((name != null ? name.get().toString() : ""));
+                System.out.println("distinguishedName: " + (distinguishedName != null ? distinguishedName.get() : ""));
+
+                Pattern pattern = Pattern.compile("OU=([^,]+)");
+                Matcher matcher = pattern.matcher(distinguishedName.get().toString());
+                while (matcher.find()) {
+                   String ar[]=matcher.group().split("\\=");
+                    System.out.println(ar[0]);
+                    System.out.println(ar[1]);
+                    if(ar[1].equalsIgnoreCase(authGroup)){
+                        itOperatorOnly =true;
+                        break;
+                    }
+                }
+
+                if(itOperatorOnly){
+                    System.out.println(" ********** find as authorized  User ************");
+                    ldapUser.setEmail((userPrincipalName != null ? userPrincipalName.get().toString() : ""));
+                    ldapUser.setDisplayName((name != null ? name.get().toString() : ""));
+                }
+
             }
             ctx.close();
         } catch (AuthenticationNotSupportedException ex) {
