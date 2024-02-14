@@ -38,6 +38,10 @@ public class UserController {
     @Value( "${ldap.group}" )
     private String authGroup;
 
+
+    @Value( "${ldap.whitelist}" )
+    private String whiteList;
+
     public  LdapUser ldapLogin(UserDto user) {
         LdapUser ldapUser=new LdapUser();
         Hashtable env = new Hashtable();
@@ -46,17 +50,18 @@ public class UserController {
         env.put(Context.SECURITY_AUTHENTICATION, "simple");
         env.put(Context.SECURITY_PRINCIPAL, "DFCCNET\\"+user.username());
         env.put(Context.SECURITY_CREDENTIALS, user.password());
-        System.out.println("test 2");
+        env.put(Context.REFERRAL, "ignore");
+        DirContext ctx=null;
         try {
-            DirContext ctx = new InitialDirContext(env);
-            System.out.println("connected");
-            System.out.println(ctx.getEnvironment());
+            ctx = new InitialDirContext(env);
+            System.out.println(" ********** connected ************");
             String searchBase = base;
             String searchFilter = "(sAMAccountName="+user.username()+")";
             SearchControls searchControls = new SearchControls();
             searchControls.setSearchScope(SearchControls.SUBTREE_SCOPE);
             NamingEnumeration<SearchResult> results = ctx.search(searchBase, searchFilter, searchControls);
-            boolean itOperatorOnly=false;
+            String whiteListEmail[]=whiteList.split("\\,");
+            boolean authorizedUser=false;
             while (results.hasMore()) {
                 SearchResult searchResult = results.next();
                 Attributes attributes = searchResult.getAttributes();
@@ -65,8 +70,12 @@ public class UserController {
                 Attribute distinguishedName = attributes.get("distinguishedName");
                 System.out.println("userPrincipalName: " + (userPrincipalName != null ? userPrincipalName.get() : ""));
                 System.out.println("name: " + (name != null ? name.get() : ""));
-                System.out.println("distinguishedName: " + (distinguishedName != null ? distinguishedName.get() : ""));
-
+                for(int i=0;i<whiteListEmail.length;i++) {
+                    if (whiteListEmail[i].equalsIgnoreCase(userPrincipalName.get().toString())){
+                        authorizedUser =true;
+                        break;
+                    }
+                }
                 Pattern pattern = Pattern.compile("OU=([^,]+)");
                 Matcher matcher = pattern.matcher(distinguishedName.get().toString());
                 while (matcher.find()) {
@@ -74,19 +83,18 @@ public class UserController {
                     System.out.println(ar[0]);
                     System.out.println(ar[1]);
                     if(ar[1].equalsIgnoreCase(authGroup)){
-                        itOperatorOnly =true;
+                        authorizedUser =true;
                         break;
                     }
                 }
 
-                if(itOperatorOnly){
+                if(authorizedUser){
                     System.out.println(" ********** find as authorized  User ************");
                     ldapUser.setEmail((userPrincipalName != null ? userPrincipalName.get().toString() : ""));
                     ldapUser.setDisplayName((name != null ? name.get().toString() : ""));
                 }
 
             }
-            ctx.close();
         } catch (AuthenticationNotSupportedException ex) {
             ex.printStackTrace();
         } catch (AuthenticationException ex) {
@@ -95,6 +103,15 @@ public class UserController {
             ex.printStackTrace();
         }catch (Exception ex) {
             ex.printStackTrace();
+        }finally {
+            try {
+                if(ctx!=null){
+                    ctx.close();
+                    System.out.println(" ********** connection closed ************");
+                }
+            } catch (NamingException e) {
+                e.printStackTrace();
+            }
         }
         return ldapUser;
     }
