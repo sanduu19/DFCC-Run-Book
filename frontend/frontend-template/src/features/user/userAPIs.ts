@@ -1,6 +1,7 @@
 import {resetAdminState, updateUser} from "./userSlice"
 import axios from "axios"
 import {AnyAction, Dispatch} from "@reduxjs/toolkit";
+import {HOST, PORT} from "../../components/const";
 
 export interface ErrorResponse {
     timestamp: string,
@@ -17,7 +18,7 @@ export interface UserLoginDetails {
 
 export const userLoginAPI = async (userData: UserLoginDetails, dispatch: Dispatch<AnyAction>) => {
     try {
-        const response = await axios.post("http://10.18.40.11:8080/user/login", userData);
+        const response = await axios.post(`http://${HOST}:${PORT}/user/login`, userData);
         if(response.data == "INVALID_AUTH"){
             userData.message = "INVALID_AUTH";
         }else {
