@@ -20,16 +20,33 @@ public class ActivityService {
     private final RecordRepo recordRepo;
 
     public Activities createService(Activities activity){
-        activity.setTime(String.valueOf(new Date()));
-        Records record = new Records();
-        record.setDate(new Date());
-        record.setConfirmation(false);
-        record.setStatus("Pending");
-        List<Records> records = activity.getRecords();
-        Records savedRecord = recordRepo.save(record);
-        records.add(savedRecord);
-        activity.setRecords(records);
-        return activityRepo.save(activity);
+        Date creatingDate = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(creatingDate);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        Date startOfDay = calendar.getTime();
+        calendar.add(Calendar.DAY_OF_MONTH, 1);
+        Date endOfDay = calendar.getTime();
+
+        Optional<List<Records>> fetchedDailyRecords = recordRepo.findByDateBetween(startOfDay, endOfDay);
+        if(fetchedDailyRecords.isPresent()){
+            activity.setTime(String.valueOf(creatingDate));
+            Records record = new Records();
+            record.setDate(new Date());
+            record.setConfirmation(false);
+            record.setStatus("Pending");
+            List<Records> records = activity.getRecords();
+            Records savedRecord = recordRepo.save(record);
+            records.add(savedRecord);
+            activity.setRecords(records);
+            return activityRepo.save(activity);
+        }else{
+            activity.setTime(String.valueOf(creatingDate));
+            return activityRepo.save(activity);
+        }
     }
 
     public List<ActivityResponse> getAllByDateAndShift(Date date, String shift) {
