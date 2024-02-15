@@ -25,12 +25,11 @@ public class ActivityService {
         record.setDate(new Date());
         record.setConfirmation(false);
         record.setStatus("Pending");
-        Records savedRecord = recordRepo.save(record);
         List<Records> records = activity.getRecords();
+        Records savedRecord = recordRepo.save(record);
         records.add(savedRecord);
         activity.setRecords(records);
         return activityRepo.save(activity);
-
     }
 
     public List<ActivityResponse> getAllByDateAndShift(Date date, String shift) {

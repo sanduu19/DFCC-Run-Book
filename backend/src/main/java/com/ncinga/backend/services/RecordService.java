@@ -3,7 +3,6 @@ package com.ncinga.backend.services;
 import com.ncinga.backend.documents.Activities;
 import com.ncinga.backend.documents.Records;
 import com.ncinga.backend.dtos.ActivityRequest;
-import com.ncinga.backend.dtos.ActivityResponse;
 import com.ncinga.backend.repos.ActivityRepo;
 import com.ncinga.backend.repos.RecordRepo;
 import lombok.Data;
@@ -85,7 +84,7 @@ public class RecordService {
         Date endOfDay = calendar.getTime();
 
         Optional<List<Records>> fetchedDailyRecords = recordRepo.findByDateBetween(startOfDay, endOfDay);
-        if(fetchedDailyRecords.isPresent() && fetchedDailyRecords.get().size() == activityRepo.findAll().size()){
+        if(fetchedDailyRecords.isPresent()){
             return "Daily Records has been Created";
         } else{
             activityRepo.findAll().forEach(activity -> {
