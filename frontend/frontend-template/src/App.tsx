@@ -13,6 +13,7 @@ import Sheet from "./components/Sheet";
 import Analytics from "./components/Analytics";
 import { useEffect, useState } from "react";
 import HashLoader from "react-spinners/HashLoader";
+import Auth from "./components/Auth";
 
 
 const router = createBrowserRouter(
@@ -22,7 +23,7 @@ const router = createBrowserRouter(
         <Route index element={<UserLogin />}/>
       </Route>
 
-      <Route path="user" element={<UserLayout />}>
+        <Route path="user" element={<Auth><UserLayout /></Auth>}>
         <Route index element={<Home />} />
         <Route path="sheet" element={<Sheet />} />
         <Route path="analytics" element={<Analytics />} />
