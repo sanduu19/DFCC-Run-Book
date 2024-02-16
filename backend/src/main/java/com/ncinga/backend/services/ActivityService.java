@@ -32,7 +32,7 @@ public class ActivityService {
         Date endOfDay = calendar.getTime();
 
         Optional<List<Records>> fetchedDailyRecords = recordRepo.findByDateBetween(startOfDay, endOfDay);
-        if(fetchedDailyRecords.isPresent()){
+        if(fetchedDailyRecords.isPresent() && !fetchedDailyRecords.get().isEmpty()){
             activity.setTime(String.valueOf(creatingDate));
             Records record = new Records();
             record.setDate(new Date());

@@ -88,10 +88,7 @@ public class RecordService {
         System.out.println("endOfDay " +endOfDay);
 
         Optional<List<Records>> fetchedDailyRecords = recordRepo.findByDateBetween(startOfDay, endOfDay);
-        System.out.println("fetchedDailyRecords.get().size() " +fetchedDailyRecords.get().size());
-        System.out.println("fetchedDailyRecords.isEmpty() " +fetchedDailyRecords.get().isEmpty());
-        System.out.println("fetchedDailyRecords.isPresent() " +fetchedDailyRecords.isPresent());
-        if(fetchedDailyRecords.isPresent()){
+        if(fetchedDailyRecords.isPresent() && !fetchedDailyRecords.get().isEmpty()){
             return "Daily Records has been Created";
         } else{
             activityRepo.findAll().forEach(activity -> {
