@@ -73,6 +73,7 @@ public class RecordService {
     }
 
     public String createDailyRecords(Date date) {
+        System.out.println("createDailyRecords ....");
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
@@ -83,7 +84,13 @@ public class RecordService {
         calendar.add(Calendar.DAY_OF_MONTH, 1);
         Date endOfDay = calendar.getTime();
 
+        System.out.println("startOfDay " +startOfDay);
+        System.out.println("endOfDay " +endOfDay);
+
         Optional<List<Records>> fetchedDailyRecords = recordRepo.findByDateBetween(startOfDay, endOfDay);
+        System.out.println("fetchedDailyRecords.get().size() " +fetchedDailyRecords.get().size());
+        System.out.println("fetchedDailyRecords.isEmpty() " +fetchedDailyRecords.get().isEmpty());
+        System.out.println("fetchedDailyRecords.isPresent() " +fetchedDailyRecords.isPresent());
         if(fetchedDailyRecords.isPresent()){
             return "Daily Records has been Created";
         } else{
