@@ -8,7 +8,7 @@ import backHH from '../assets/backHomee.jpg';
 import {fetchPieChartData, fetchPieChartSummaryData} from "../features/analytics/AnalyticsAPIs";
 
 export default function Analytics() {
-  const [selectedDate, setSelectedDate] = useState<Date | string>(new Date());
+  const [selectedDate, setSelectedDate] = useState<Date | any>(new Date());
   const [loading, setLoading] = useState(true);
   const chartRef1 = useRef(null);
   const chartRef2 = useRef(null);
@@ -49,18 +49,20 @@ export default function Analytics() {
           },
           legend: {
             labels: {
-              fontSize: 18,
+              font: {
+                size: 18,
+              },
               color: '#090808',
             },
           },
         },
         scales: {
           x: {
-            font: {
-              size: 50,
-            },
             ticks: {
               color: '#090808',
+              font: {
+                size: 18,
+              },
             },
             grid: {
               color: '#090808',
@@ -69,8 +71,10 @@ export default function Analytics() {
           y: {
             beginAtZero: true,
             ticks: {
-              fontSize: 18,
               color: '#090808',
+              font: {
+                size: 18,
+              },
             },
             grid: {
               color: '#090808',
@@ -79,6 +83,7 @@ export default function Analytics() {
         },
       },
     });
+
   };
 
   useEffect(() => {

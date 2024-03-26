@@ -13,7 +13,7 @@ export interface ErrorResponse {
 export interface UserLoginDetails {
     username: string,
     password: string,
-    message: string,
+    message?: string,
 }
 
 export const userLoginAPI = async (userData: UserLoginDetails, dispatch: Dispatch<AnyAction>) => {
@@ -30,7 +30,7 @@ export const userLoginAPI = async (userData: UserLoginDetails, dispatch: Dispatc
     } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
             dispatch(resetAdminState());
-            console.error(error.response as ErrorResponse);
+            console.error(error.response);
         } else {
             dispatch(resetAdminState());
             console.error({

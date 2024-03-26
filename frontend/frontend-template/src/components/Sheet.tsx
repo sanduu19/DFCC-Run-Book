@@ -39,7 +39,7 @@ interface excelRowData {
 }
 
 export default function Sheet(){
-    const [selectedDate, setSelectedDate] = useState<Date | string>(new Date());
+    const [selectedDate, setSelectedDate] = useState<Date | any>(new Date());
     const [selectedOption, setSelectedOption] = useState<string>('Morning-Weekday-Normal'); // Default value
     const [data, setData] = useState<RowData[]>([]);
 
